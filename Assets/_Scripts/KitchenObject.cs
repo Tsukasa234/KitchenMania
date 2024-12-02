@@ -6,7 +6,7 @@ public class KitchenObject : MonoBehaviour
 
     private IKitchenObjectParent kitchenObjectParent;
 
-    public KitchenObject_SO GetKitchenObject()
+    public KitchenObject_SO GetKitchenObjectSO()
     {
         return kitchenObjectPrefab;
     }

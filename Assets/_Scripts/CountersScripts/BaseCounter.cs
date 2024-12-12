@@ -1,7 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
+    //private void Start()
+    //{
+    //    StartCoroutine(HandleFriedTimer());
+    //}
+
+    //private IEnumerator HandleFriedTimer()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //}
+
     [SerializeField] private Transform counterTopPoint;
 
     private KitchenObject kitchenObject;

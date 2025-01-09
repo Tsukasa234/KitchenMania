@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public static Player Instance { get; private set; }
 
     //Events
+    public event EventHandler OnPickedSomething;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
@@ -48,6 +49,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     //Function event of the Alternative Interaction Action Input
     private void GameInput_OnInteractAlternativeAction(object sender, EventArgs e)
     {
+        if (!GameManager.Instance.IsGamePlaying())
+        {
+            return;
+        }
         //Send the Counter that the user is looking
         if (selectedCounter != null)
         {
@@ -58,6 +63,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     //Function Event of the Interaction Action Input
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
+        if (!GameManager.Instance.IsGamePlaying())
+        {
+            return;
+        }
         //Send the Counter that the user is looking
         if (selectedCounter != null)
         {
@@ -197,6 +206,11 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+
+        if (kitchenObject != null)
+        {
+            OnPickedSomething?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     //Return the KitchenObject Function

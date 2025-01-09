@@ -1,17 +1,15 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
-    //private void Start()
-    //{
-    //    StartCoroutine(HandleFriedTimer());
-    //}
+    public static event EventHandler OnAnyObjectPlaceHere;
 
-    //private IEnumerator HandleFriedTimer()
-    //{
-    //    yield return new WaitForSeconds(1f);
-    //}
+    public static void ResetStaticData()
+    {
+        OnAnyObjectPlaceHere = null;
+    }
 
     [SerializeField] private Transform counterTopPoint;
 
@@ -34,6 +32,12 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+
+        if (kitchenObject != null)
+        {
+            OnAnyObjectPlaceHere?.Invoke(this, EventArgs.Empty);
+        }
+
     }
 
     public KitchenObject GetKitchenObject()
